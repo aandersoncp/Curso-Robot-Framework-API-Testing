@@ -69,11 +69,11 @@ Realizar login
 
 Cadastrar produto
     ${auth}     Create Dictionary
-    ...     authorization=${TOKEN}
+    ...     Authorization=${TOKEN}
     Log  ${auth}
 
     ${body}     Create Dictionary
-    ...     nome=produto teste
+    ...     nome=produto teste1
     ...     preco=${100}
     ...     descricao=descricao teste
     ...     quantidade=${10}
@@ -85,6 +85,6 @@ Cadastrar produto
     ...          alias=ServeRest
     ...          url=/produtos
     ...          json=${body}
-    ...          expected_status=${201}
-    ...          auth=${TOKEN}
+    ...          expected_status=201
+    ...          headers=${auth}
     Log  ${resposta.json()}
