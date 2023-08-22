@@ -5,10 +5,14 @@ Library    Collections
 
 *** Keywords ***
 Criar um novo usuario
-    ${palavra_aleatoria}  Generate Random String  length=4  chars=[LETTERS]
+    ${palavra_aleatoria}  Generate Random String  length=3  chars=[LETTERS]
     ${palavra_aleatoria}  Convert To Lower Case   ${palavra_aleatoria}
-    Set Suite Variable     ${EMAIL_TESTE}  ${palavra_aleatoria}@emailteste.com
+    Set Suite Variable    ${EMAIL_TESTE}  teste${palavra_aleatoria}@emailteste.com
     Log  ${EMAIL_TESTE}
+
+Criar Sessão na ServeRest
+    ${headers}  Create Dictionary  accept=application/json  Content-Type=application/json
+    Create Session    alias=ServeRest    url=https://serverest.dev   headers=${headers}
 
 Cadastrar o usuario criado na ServeRest
     [Arguments]  ${email}  ${status_code_desejado}
@@ -35,10 +39,6 @@ Cadastrar o usuario criado na ServeRest
 
     Set Suite Variable    ${RESPOSTA}    ${resposta.json()}
 
-Criar Sessão na ServeRest
-    ${headers}  Create Dictionary  accept=application/json  Content-Type=application/json
-    Create Session    alias=ServeRest    url=https://serverest.dev   headers=${headers}
-
 Conferir se o usuario foi cadastrado corretamente
     Log  ${RESPOSTA}
     Dictionary Should Contain Item  ${RESPOSTA}  message  Cadastro realizado com sucesso
@@ -60,7 +60,31 @@ Realizar login
     ...          expected_status=${status_code_desejado}
     Log  ${resposta.json()}
 
+    Set Suite Variable  ${TOKEN}  ${resposta.json()["authorization"]}
+    Log    ${TOKEN}
+
     IF    ${resposta.status_code} == 200
         Log     ${resposta.json()["message"]}
     END
 
+Cadastrar produto
+    ${auth}     Create Dictionary
+    ...     authorization=${TOKEN}
+    Log  ${auth}
+
+    ${body}     Create Dictionary
+    ...     nome=produto teste
+    ...     preco=${100}
+    ...     descricao=descricao teste
+    ...     quantidade=${10}
+    Log  ${body}
+
+    Criar Sessão na ServeRest
+
+    ${resposta}     POST On Session
+    ...          alias=ServeRest
+    ...          url=/produtos
+    ...          json=${body}
+    ...          expected_status=${201}
+    ...          auth=${TOKEN}
+    Log  ${resposta.json()}
