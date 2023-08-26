@@ -14,7 +14,7 @@ Criar um novo email
 Cadastrar o usuario criado na ServeRest
     [Arguments]  ${email}  ${status_code_desejado}
     ${body}  Create Dictionary
-    ...      nome=teste
+    ...      nome=Anderson Costa
     ...      email=${email}
     ...      password=123456
     ...      administrador=true
@@ -53,28 +53,20 @@ Consultar todos os usuário
 
 Consultar usuário por id
     Criar Sessão na ServeRest
-    
-    ${id}    Create Dictionary    _id=${ID_USUARIO} 
-#    ...    4DWbLYYgtpskuQCJ
 
     ${resposta}    Get On Session
     ...            alias=ServeRest
-    ...            url=/usuarios
-    ...            params=${id}
-    ...            expected_status=200
-    
+    ...            url=/usuarios/{ID_USUARIO}
+    ...            expected_status=200 
 
     Log    ${resposta.json()}
 
 Deletar usuário por id
-#    ${id}    Create Dictionary    _id=${ID_USUARIO} 
-#    ...    4DWbLYYgtpskuQCJ
 
     ${resposta}    DELETE On Session
     ...            alias=ServeRest
     ...            url=/usuarios/${ID_USUARIO}
-    ...            expected_status=200
-    
+    ...            expected_status=200 
 
     Log    ${resposta.json()}
 

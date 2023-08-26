@@ -5,7 +5,7 @@ Library    ResquestLibrary
 *** Keywords ***
 
 Realizar login
-    [Arguments]     ${email}   ${senha}     ${status_code_desejado}
+    [Arguments]     ${email}   ${senha}    ${status_code_desejado}
     ${body}     Create Dictionary
     ...     email=${email}
     ...     password=${senha}
@@ -20,7 +20,7 @@ Realizar login
     ...          expected_status=${status_code_desejado}
     Log  ${resposta.json()}
 
-    Set Suite Variable  ${TOKEN}  ${resposta.json()["authorization"]}
+    Set Global Variable  ${TOKEN}  ${resposta.json()["authorization"]}
     Log    ${TOKEN}
 
     IF    ${resposta.status_code} == 200
