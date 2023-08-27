@@ -23,6 +23,7 @@ Consultar todos os produtos
     Log    ${resposta.json()}    
 
 Cadastrar produto
+    [Arguments]    ${TOKEN}
     ${auth}     Create Dictionary
     ...     Authorization=${TOKEN}
     Log  ${auth}
@@ -45,10 +46,11 @@ Cadastrar produto
     ...          headers=${auth}
     Log  ${resposta.json()}
 
-    Set Suite Variable    ${ID_PRODUTO}    ${resposta.json()["_id"]}
+    [Return]    ${resposta.json()["_id"]}
 
 Consultar produto por id
-    Cadastrar produto
+    [Arguments]    ${TOKEN}
+    ${ID_PRODUTO}    Cadastrar produto    ${TOKEN}
 
     ${resposta}     GET On Session
     ...             alias=ServeRest
@@ -57,7 +59,8 @@ Consultar produto por id
     Log  ${resposta.json()}
 
 Deletar produto por id
-    Cadastrar produto
+    [Arguments]    ${TOKEN}
+    ${ID_PRODUTO}    Cadastrar produto    ${TOKEN}
 
     ${auth}     Create Dictionary
     ...     Authorization=${TOKEN}
@@ -71,7 +74,8 @@ Deletar produto por id
     Log  ${resposta.json()}
 
 Atualizar produto por id
-    Cadastrar produto
+    [Arguments]    ${TOKEN}
+    ${ID_PRODUTO}    Cadastrar produto    ${TOKEN}
 
     ${auth}     Create Dictionary
     ...     Authorization=${TOKEN}

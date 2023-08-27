@@ -1,22 +1,15 @@
 *** Settings ***
 Resource    base_teste.resource
+Resource    ../variaveis/variaveis.resource
 Library     ResquestLibrary
 
 *** Keywords ***
-
-Criar um novo email
-    [Documentation]    Criação de um novo usuário
-    ${palavra_aleatoria}  Generate Random String  length=3  chars=[LETTERS]
-    ${palavra_aleatoria}  Convert To Lower Case   ${palavra_aleatoria}
-    Set Suite Variable    ${EMAIL_TESTE}  teste${palavra_aleatoria}@emailteste.com
-    Log  ${EMAIL_TESTE}
-
 Cadastrar o usuario criado na ServeRest
     [Arguments]  ${email}  ${status_code_desejado}
     ${body}  Create Dictionary
     ...      nome=Anderson Costa
     ...      email=${email}
-    ...      password=123456
+    ...      password=${SENHA}
     ...      administrador=true
     Log   ${body}
 

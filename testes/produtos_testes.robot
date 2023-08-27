@@ -9,17 +9,17 @@ Cenário 01 - Consultar todos os produtos
     Consultar todos os produtos
 
 Cenário 02 - Cadastrar novo produto
-    Realizar login    ${usuario_email_teste}    ${usuario_senha_teste}    200
-    Cadastrar produto
+    ${token}    Realizar login    ${usuario_email_teste}    ${SENHA}    200
+    Cadastrar produto    ${token}
 
 Cenário 03 - Consultar produto por id
-    Realizar login    ${usuario_email_teste}    ${usuario_senha_teste}    200
-    Consultar produto por id
+    ${token}    Realizar login    ${usuario_email_teste}    ${SENHA}    200
+    Consultar produto por id    ${token}
 
 Cenário 04 - Consultar produto por id
-    Realizar login    ${usuario_email_teste}    ${usuario_senha_teste}    200
-    Deletar produto por id
+    ${token}    Realizar login    ${usuario_email_teste}    ${SENHA}    200
+    Deletar produto por id    ${token}
 
 Cenário 05 - Atualizar produto por id
-    Realizar login    ${usuario_email_teste}    ${usuario_senha_teste}    200
-    Atualizar produto por id
+    ${token}    Realizar login    ${usuario_email_teste}    ${SENHA}    200
+    Atualizar produto por id    ${token}

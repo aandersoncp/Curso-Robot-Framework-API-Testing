@@ -20,9 +20,10 @@ Realizar login
     ...          expected_status=${status_code_desejado}
     Log  ${resposta.json()}
 
-    Set Global Variable  ${TOKEN}  ${resposta.json()["authorization"]}
-    Log    ${TOKEN}
+    Log    ${resposta.json()["authorization"]}
 
     IF    ${resposta.status_code} == 200
         Log     ${resposta.json()["message"]}
     END
+
+    [Return]    ${resposta.json()["authorization"]}
