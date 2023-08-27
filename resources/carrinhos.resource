@@ -53,6 +53,29 @@ Consultar carrinho por id
     Log    ${resposta.json()}
 
 Concluir compra
+    [Arguments]    ${token_auth}
+    ${auth}     Create Dictionary
+    ...     Authorization=${token_auth}
+    Log  ${auth}
 
+    ${resposta}    DELETE On Session
+    ...            alias=ServeRest
+    ...            url=/carrinhos/concluir-compra
+    ...            headers=${auth}
+    ...            expected_status=200
+    
+    Log    ${resposta.json()}
 
 Cancelar compra
+    [Arguments]    ${token_auth}
+    ${auth}     Create Dictionary
+    ...     Authorization=${token_auth}
+    Log  ${auth}
+
+    ${resposta}    DELETE On Session
+    ...            alias=ServeRest
+    ...            url=/carrinhos/cancelar-compra
+    ...            headers=${auth}
+    ...            expected_status=200
+    
+    Log    ${resposta.json()}
