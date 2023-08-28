@@ -1,6 +1,6 @@
 # Robot-Framework-API-Testing
 
-Exercícios de testes de API com <a href="https://robotframework.org/" target="_blank">Robot Framework</a>
+Projeto de testes de API com <a href="https://robotframework.org/" target="_blank">Robot Framework</a>
 
 API utilizada: 
 
